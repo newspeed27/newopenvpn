@@ -20,4 +20,7 @@ wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/statusvpn -O
 chmod +x /bin/statusvpn 
 clear 
 wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/newopenvpninstall && bash newopenvpninstall 
-  
+ssh-keygen -A
+cat /dev/null > ~/.bash_history && history -c
+reboot
+
