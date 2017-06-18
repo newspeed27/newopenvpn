@@ -3,7 +3,7 @@ apt-get install git wget nano speedtest-cli squid3 -y
 rm -rf /etc/ssh/sshd_config
 wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/sshd_config -O /etc/ssh/sshd_config
 wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/squidconf 
-chmod +x /bin/squidconf 
+chmod +x squidconf 
 ./squidconf 
 wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/payloads -O /etc/payloads 
 wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/alterarsenha -O /bin/alterarsenha 
