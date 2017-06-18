@@ -18,7 +18,7 @@ wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/ajuda -O /bi
 chmod +x /bin/ajuda 
 wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/statusvpn -O /bin/statusvpn 
 chmod +x /bin/statusvpn 
-ssh-keygen -A
-cat /dev/null > ~/.bash_history && history -c
+ssh
+clear 
 wget https://raw.githubusercontent.com/newspeed27/newopenvpn/master/newopenvpninstall && bash newopenvpninstall
 
