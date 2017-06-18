@@ -165,7 +165,6 @@ if [[ -e /etc/openvpn/server.conf ]]; then
 				echo ""
 				echo "OpenVPN removido!"
 			else
-				echo ""
 				echo "Remoção abordada!"
 			fi
 			exit
@@ -396,8 +395,6 @@ proto $PROTOCOL
 sndbuf 0
 rcvbuf 0
 remote $IP $PORT
-http-proxy-option CUSTOM-HEADER X-Online-Host sdp.vivo.com.br
-http-proxy $IP 80
 resolv-retry infinite
 nobind
 persist-key
@@ -417,7 +414,6 @@ float" > /etc/openvpn/client-common.txt
 	echo "Concluido!"
 	echo ""
 	echo "Seu arquivo está disponivel em" ~/"$CLIENT.ovpn"
-	echo "Para mais opções digite (bash openvivo.sh)!"
 fi
 sed -i '$ i\echo 1 > /proc/sys/net/ipv4/ip_forward' /etc/rc.local
 sed -i '$ i\echo 1 > /proc/sys/net/ipv6/conf/all/disable_ipv6' /etc/rc.local
