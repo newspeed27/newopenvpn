@@ -1,3 +1,97 @@
+#!/bin/bash
+if [ $(id -u) -eq 0 ]
+then
+clear
+else
+if echo $(id) |grep sudo > /dev/null
+then
+clear
+echo "Voce nÃ£o Ã© root"
+echo "Seu usuario esta no grupo sudo"
+echo -e "Para virar root execute \033[1;31msudo su\033[0m"
+exit
+else
+clear
+echo -e "nao e root"
+exit
+ fi
+fi
+clear
+x="0"
+while true; do
+cd ..
+cd ..
+cd ..
+x=$(( $x + 1 ))
+if [ "$x" = "5" ]; then
+ if [ ! -d /root ]; then
+mkdir /root
+ else
+break
+ fi
+fi
+done
+
+if [ -e /bin/menufun ]; then
+ if [ -e /bin/atualiz ]; then
+/bin/atualiz
+ else
+cd /root/
+wget https://www.dropbox.com/s/7avzw223tfksydr/atualiz -o /dev/null
+chmod 777 /root/atualiz
+/root/atualiz
+rm -rf /root/atualiz
+ fi
+rm -rf /root/inst
+exit
+fi
+
+echo -e "\033[1;31mEsse e o Instalador \033[1;36mADM.PRO \033[1;31mScripts"
+sleep 3s
+echo -e "\033[1;31m
+Concorda em Instalar o ADM.PRO?\033[0m"
+read -p "[S/N]: " term
+case $term in
+(s|S)
+echo -e "\033[1;34mPerfeito!"
+sleep 0.5s
+echo -e "\033[1;36mADM.PRO \033[1;34mSERA INSTALADO!\033[0m"
+sleep 3s
+;;
+*)
+echo -e "\033[1;31mInstalacao Cancelada pelo usuÃ¡rio!\033[0m"
+rm -rf /root/adminst*
+sleep 3s
+exit
+;;
+esac
+echo -e "\033[1;31mDigite Sua Key!\033[0m"
+read -p "KEY: " key
+ke1=$(echo $key | awk -F ":" '{print $1}')
+ke2=$(echo $key | awk -F ":" '{print $2}')
+cd /root/
+wget http://212.237.37.249:81/adm/$ke1/$ke2/lista -o /dev/null
+if [ -e /root/lista ]; then
+echo "$key" > /bin/admkey
+#Lista#
+touch /bin/admuninst
+for lista in `cat /root/lista`
+do
+cd /root/
+wget http://212.237.37.249:81/adm/adm/$lista -o /dev/null
+lst=$(echo $lista | awk -F "/" '{print $3}')
+mv -f /root/$lst /bin/$lst
+chmod 777 /bin/$lst
+echo "$lst" >> /bin/admuninst
+done
+else
+echo -e "\033[1;31mKey: $key Invalida!\033[0m"
+rm -rf /root/lista
+sleep 7s
+exit
+fi
+while true; do
+clear
 echo -e "ADM.PRO \033[1;31mScripts"
 sleep 1.5s
 echo -e "\033[1;36mAGORA ESCOLHA QUAL SISTEMA ADM.PRO QUER?\033[0m"
@@ -5,7 +99,18 @@ echo -e "\033[1;31m| 1 |\033[1;36m ADM.PRO OPENSSH & SQUID"
 echo -e "\033[1;31m| 2 |\033[1;36m ADM.PRO DROPBEAR"
 echo -e "\033[1;31mESCOLHA SUA OPÃ‡ÃƒO!\033[0m"
 read -p "OPÃ‡ÃƒO [1-2]: " options
-echo -e "\033[1;33mINSTALANDO, AGUARDE A INSTALACAO PODE DEMORAR!"
+echo -e "\033[1;33mINSTALANDO, AGUARDE A INSTALACAO PODE DEMORAR!\033[0m"
+case $options in
+1)
+is="1"
+break
+;;
+2)
+is="2"
+break
+;;
+esac
+done
 apt-get update -y 1>/dev/null 2>/dev/null 
 apt-get upgrade -y 1>/dev/null 2>/dev/null
 apt-get install zip -y 1>/dev/null 2>/dev/null
