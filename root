@@ -4,4 +4,5 @@ read -p "OpÃ§oes: " select
 case $select in
 (Continuar|continuar)
 break
-root
+reboot
+ 
