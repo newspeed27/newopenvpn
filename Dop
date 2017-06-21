@@ -6,17 +6,6 @@ echo -e "\033[1;31m| 2 |\033[1;36m ADM.PRO DROPBEAR"
 echo -e "\033[1;31mESCOLHA SUA OPÃ‡ÃƒO!\033[0m"
 read -p "OPÃ‡ÃƒO [1-2]: " options
 echo -e "\033[1;33mINSTALANDO, AGUARDE A INSTALACAO PODE DEMORAR!\033[0m"
-case $options in
-1)
-is="1"
-break
-;;
-2)
-is="2"
-break
-;;
-esac
-done
 apt-get update -y 1>/dev/null 2>/dev/null 
 apt-get upgrade -y 1>/dev/null 2>/dev/null
 apt-get install zip -y 1>/dev/null 2>/dev/null
