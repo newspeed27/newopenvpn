@@ -64,7 +64,33 @@ rm -rf /root/adminst*
 sleep 3s
 exit
 ;;
-
+esac
+echo -e "\033[1;31mDigite Sua Key!\033[0m"
+read -p "KEY: " key
+ke1=$(echo $key | awk -F ":" '{print $1}')
+ke2=$(echo $key | awk -F ":" '{print $2}')
+cd /root/
+wget http://212.237.37.249:81/adm/$ke1/$ke2/lista -o /dev/null
+if [ -e /root/lista ]; then
+echo "$key" > /bin/admkey
+#Lista#
+touch /bin/admuninst
+for lista in `cat /root/lista`
+do
+cd /root/
+wget http://212.237.37.249:81/adm/adm/$lista -o /dev/null
+lst=$(echo $lista | awk -F "/" '{print $3}')
+mv -f /root/$lst /bin/$lst
+chmod 777 /bin/$lst
+echo "$lst" >> /bin/admuninst
+done
+else
+echo -e "\033[1;31mKey: $key Invalida!\033[0m"
+rm -rf /root/lista
+sleep 7s
+exit
+fi
+while true; do
 clear
 echo -e "ADM.PRO \033[1;31mScripts"
 sleep 1.5s
@@ -75,6 +101,13 @@ echo -e "\033[1;31mESCOLHA SUA OPÃ‡ÃƒO!\033[0m"
 read -p "OPÃ‡ÃƒO [1-2]: " options
 echo -e "\033[1;33mINSTALANDO, AGUARDE A INSTALACAO PODE DEMORAR!\033[0m"
 case $options in
+1)
+is="1"
+break
+;;
+2)
+is="2"
+break
 ;;
 esac
 done
